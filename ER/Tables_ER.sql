@@ -1,5 +1,5 @@
 CREATE TABLE "DimEmployees" (
-  "employee_id" integer SERIAL PRIMARY KEY,
+  "employee_id" SERIAL PRIMARY KEY,
   "name" varchar NOT NULL,
   "email" varchar NOT NULL,
   "salary" varchar,
@@ -9,13 +9,13 @@ CREATE TABLE "DimEmployees" (
 );
 
 CREATE TABLE "DimDepartments" (
-  "department_id" integer SERIAL PRIMARY KEY,
+  "department_id" SERIAL PRIMARY KEY,
   "name" varchar NOT NULL,
   "created_at" timestamp NOT NULL
 );
 
 CREATE TABLE "DimRoles" (
-  "role_id" integer SERIAL PRIMARY KEY,
+  "role_id" SERIAL PRIMARY KEY,
   "department_id" integer NOT NULL,
   "title" varchar,
   "description" text,
@@ -24,7 +24,7 @@ CREATE TABLE "DimRoles" (
 );
 
 CREATE TABLE "FactJob_history" (
-  "job_id" integer SERIAL PRIMARY KEY,
+  "job_id" SERIAL PRIMARY KEY,
   "employee_id" integer NOT NULL,
   "salary" float,
   "entry" date,
@@ -33,7 +33,7 @@ CREATE TABLE "FactJob_history" (
 );
 
 CREATE TABLE "DimProducts" (
-  "product_id" integer SERIAL PRIMARY KEY,
+  "product_id" SERIAL PRIMARY KEY,
   "name" varchar NOT NULL,
   "description" text,
   "quantity" integer,
@@ -43,21 +43,21 @@ CREATE TABLE "DimProducts" (
 );
 
 CREATE TABLE "DimCustomers" (
-  "customer_id" integer SERIAL PRIMARY KEY,
+  "customer_id" SERIAL PRIMARY KEY,
   "name" varchar,
   "address" varchar,
   "phone" varchar NOT NULL
 );
 
 CREATE TABLE "DimSuppliers" (
-  "supplier_id" integer SERIAL PRIMARY KEY,
+  "supplier_id" SERIAL PRIMARY KEY,
   "supplier_name" varchar,
   "contact_person" varchar NOT NULL,
   "email" varchar NOT NULL
 );
 
 CREATE TABLE "FactOrders" (
-  "order_id" integer SERIAL PRIMARY KEY,
+  "order_id" SERIAL PRIMARY KEY,
   "customer_id" integer NOT NULL,
   "employee_id" integer NOT NULL,
   "products" integer[],
@@ -69,14 +69,14 @@ CREATE TABLE "FactOrders" (
 );
 
 CREATE TABLE "DimShipments" (
-  "shipment_id" integer SERIAL PRIMARY KEY,
+  "shipment_id" SERIAL PRIMARY KEY,
   "order_id" integer NOT NULL,
-  "shipment_date" datetime,
+  "shipment_date" date,
   "status_id" integer NOT NULL
 );
 
 CREATE TABLE "DimStatuses" (
-	"status_id" integer SERIAL PRIMARY KEY,
+	"status_id" SERIAL PRIMARY KEY,
 	"name" varchar NOT NULL
 );
 
@@ -96,11 +96,9 @@ ALTER TABLE "FactOrders" ADD FOREIGN KEY ("customer_id") REFERENCES "DimCustomer
 
 ALTER TABLE "FactOrders" ADD FOREIGN KEY ("employee_id") REFERENCES "DimEmployees" ("employee_id");
 
-ALTER TABLE "DimProducts" ADD FOREIGN KEY ("product_id") REFERENCES "FactOrders" ("products");
-
 ALTER TABLE "DimProducts" ADD FOREIGN KEY ("supplier_id") REFERENCES "DimSuppliers" ("supplier_id");
 
-ALTER TABLE "FactOrders" ADD FOREIGN KEY ("order_id") REFERENCES "DimShipments" ("order_id");
+ALTER TABLE "DimShipments" ADD FOREIGN KEY ("order_id") REFERENCES "FactOrders" ("order_id");
 
 ALTER TABLE "DimShipments" ADD FOREIGN KEY ("status_id") REFERENCES "DimStatuses" ("status_id");
 
