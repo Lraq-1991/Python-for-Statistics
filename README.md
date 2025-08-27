@@ -10,6 +10,6 @@ You can explore, fork and contribute to this repository. Feedback, suggestions a
 
 **Have fun while learning!**
 
-👉 Find the Datasets below: 
+👉 Find some Datasets below: 
 
 [Credit Card Fraud Detection](https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud)
